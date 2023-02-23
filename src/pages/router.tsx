@@ -1,6 +1,7 @@
 import React from 'react'
-import { createBrowserRouter } from 'react-router-dom'
-import LayoutPublic from '../shared/public/layout-public.component'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Loader from '../shared/loader/loader.component'
+import Layout from '../shared/layout/layout.component'
 import Articulos from './articulos/articles.component'
 import Lectura from './articulos/lectura/lectura.component'
 import Curriculum from './curriculum/curriculum.component'
@@ -9,10 +10,10 @@ import Home from './home/home.component'
 import Login from './login/login.component'
 import NotFound from './not-found/not-found.component'
 
-const router = createBrowserRouter([
+const browserRouter = createBrowserRouter([
   {
     path: '/',
-    element: <LayoutPublic />,
+    element: <Layout />,
     errorElement: <NotFound />,
     children: [
       {
@@ -43,4 +44,10 @@ const router = createBrowserRouter([
   }
 ])
 
-export default router
+function Router (): JSX.Element {
+  return (
+    <RouterProvider router={browserRouter} fallbackElement={<Loader />}/>
+  )
+}
+
+export default Router

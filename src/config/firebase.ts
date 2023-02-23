@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { getAnalytics, setAnalyticsCollectionEnabled, logEvent } from 'firebase/analytics'
-import { getAuth, signInWithEmailAndPassword, signOut, type UserCredential } from 'firebase/auth'
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, type UserCredential, type Unsubscribe, type User } from 'firebase/auth'
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_API_KEY,
@@ -30,4 +30,12 @@ export const authSignOut = async (): Promise<void> => {
 
 export const analyticsLogEvent = (eventName: string, eventParams: Record<string, any> | undefined = undefined): void => {
   logEvent(analytics, eventName, eventParams)
+}
+
+type GetUser = (user: User | null) => void
+
+export const onAuthChanged = (callback: GetUser): Unsubscribe => {
+  return onAuthStateChanged(auth, (user) => {
+    callback(user)
+  })
 }

@@ -1,4 +1,12 @@
+@import './styles/fonts';
+@import './styles/theme';
+
 body {
   margin: 0;
-  font-family: 'Noto Sans', sans-serif;
+  box-sizing: border-box;
+  font-family: $default-font;
+  @include theme-colors($dark-theme: false);
+  html[data-theme=dark] & {
+    @include theme-colors($dark-theme: true);
+  }
 }

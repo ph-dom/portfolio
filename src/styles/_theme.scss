@@ -1,0 +1,19 @@
+$primary-color: #ff0000;
+$secondary-color: #98ff56;
+
+$dark-background: black;
+$dark-text: white;
+
+$light-background: white;
+$light-text: black;
+
+@mixin theme-colors($dark-theme: true) {
+  @if $dark-theme {
+    background-color: $dark-background;
+    color: $dark-text;
+  } else {
+    background-color: $light-background;
+    color: $light-text;
+  }
+}
+

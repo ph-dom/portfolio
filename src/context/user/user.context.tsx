@@ -10,7 +10,6 @@ export default function UserProvider (props: PropsWithChildren): JSX.Element {
   const [loading, setLoading] = React.useState(true)
 
   const handleChangeUser = (user: User | null): void => {
-    console.log('PASE POR AQUICHI', user)
     setUser(user)
     setLoading(false)
   }

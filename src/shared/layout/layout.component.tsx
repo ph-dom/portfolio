@@ -1,10 +1,12 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { Outlet, NavLink } from 'react-router-dom'
 import { authSignOut } from '../../config/firebase'
 import { UserContext } from '../../context/user/user.context'
 
 function Layout (): JSX.Element {
   const user = React.useContext(UserContext)
+  const { i18n } = useTranslation()
 
   const [darkMode, setDarkMode] = React.useState<boolean>(() => {
     const theme = localStorage.getItem('theme')
@@ -30,6 +32,14 @@ function Layout (): JSX.Element {
     })
   }
 
+  const handleChangeLang = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+    i18n.changeLanguage(event.target.value).then((t) => {
+      console.log('done')
+    }).catch(error => {
+      console.log(error)
+    })
+  }
+
   return (
     <React.Fragment>
       <header>
@@ -40,6 +50,12 @@ function Layout (): JSX.Element {
             <li><NavLink to={'/cv'}>CV</NavLink></li>
             <li><NavLink to={'/articulos'}>Articulos</NavLink></li>
             <li><button type="button" onClick={handleClickChangeTheme}>{darkMode ? 'Dark' : 'Light'}</button></li>
+            <li>
+              <select onChange={(event) => { handleChangeLang(event) }} value={i18n.language}>
+                <option value="en">en</option>
+                <option value="es">es</option>
+              </select>
+            </li>
             {user !== null && (<li><button type="button" onClick={handleClickSignOut}>Cerrar Sesión</button></li>)}
           </ul>
         </nav>
